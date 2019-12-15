@@ -4,6 +4,9 @@
 #   https://www.terraform.io/docs/providers/alicloud/d/zones.html
 #   https://www.terraform.io/docs/providers/alicloud/d/regions.html
 #
+provider "alicloud" {
+    version = ">= 1.64"
+}
 locals {
     availability_zone   = "${lookup(var.icmdb-ecs, "region")}-${lookup(var.icmdb-ecs, "availability_zone")}"
 }

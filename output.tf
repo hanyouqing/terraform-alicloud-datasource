@@ -7,6 +7,9 @@ output "region_alias" {
 output "cidr_blocks" {
     value = var.cidr_blocks
 }
+output "datasource_dir" {
+    value = var.datasource_dir
+}
 output "alicloud_account_id" {
     value = data.alicloud_account.current.id
 }

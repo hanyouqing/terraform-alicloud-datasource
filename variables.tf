@@ -9,7 +9,7 @@
 #   -var / -var-file
 #
 
-variable "datasource_dir"       { default = "" }    # should be create maunually
+variable "datasource_dir" { default = "" }    # should be create maunually
 variable "region_alias" {
     description = "This variable is just a comment used to save time"
     default = {
