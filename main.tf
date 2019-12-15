@@ -8,39 +8,39 @@ provider "alicloud" {
     version = ">= 1.64"
 }
 locals {
-    availability_zone   = "${lookup(var.icmdb-ecs, "region")}-${lookup(var.icmdb-ecs, "availability_zone")}"
+    availability_zone   = format("%v-%v", lookup(var.demo, "region"), lookup(var.demo, "availability_zone"))
 }
 data "alicloud_account" "current" {}
 data "alicloud_regions" "regions" {
-    output_file         = "${var.datasource_dir}/regions.json"
+    output_file         = format("%v/regions.json", var.datasource_dir)
 }
 data "alicloud_zones" "zone" {
     available_resource_creation = "Instance"
     # available_disk_category     = "cloud_efficiency"
     # available_instance_type     = ""
-    output_file                 = "${var.datasource_dir}/zones.${lookup(var.icmdb-ecs, "region")}.json"
+    output_file                 = format("%v/zones%v.json", var.datasource_dir, lookup(var.demo, "region"))
 }
 data "alicloud_images" "ubuntu" {
     most_recent         = true
-    name_regex          = "${lookup(var.icmdb-ecs, "img_ubuntu")}"
-    output_file         = "${var.datasource_dir}/img.ubuntu.json"
+    name_regex          = lookup(var.demo, "img_ubuntu")
+    output_file         = format("%v/img.ubuntu.json", var.datasource_dir) 
 }
 data "alicloud_images" "centos" {
     most_recent         = true
-    name_regex          = "${lookup(var.icmdb-ecs, "img_centos")}"
-    output_file         = "${var.datasource_dir}/img.centos.json"
+    name_regex          = lookup(var.demo, "img_centos")
+    output_file         = format("%v/img.centos.json", var.datasource_dir)
 }
 data "alicloud_instance_type_families" "prepaid" {
     instance_charge_type = "PrePaid"
-    output_file          = "${var.datasource_dir}/instance-types.prepaid.json"
+    output_file          = format("%v/instance-types.prepaid.json", var.datasource_dir)
 }
 data "alicloud_instance_type_families" "postpaid" {
     instance_charge_type = "PostPaid"
-    output_file          = "${var.datasource_dir}/instance-types.postpaid.json"
+    output_file          = format("%v/instance-types.postpaid.json", var.datasource_dir)
 }
 data "alicloud_instance_types" "instypes" {
-    memory_size          = "${lookup(var.icmdb-ecs, "memory_size")}"
-    cpu_core_count       = "${lookup(var.icmdb-ecs, "cpu_core_count")}"
-    availability_zone    = "${local.availability_zone}"
-    output_file          = "${var.datasource_dir}/instance-types.${local.availability_zone}.json"
+    memory_size          = lookup(var.demo, "memory_size")
+    cpu_core_count       = lookup(var.demo, "cpu_core_count")
+    availability_zone    = local.availability_zone
+    output_file          = format("%v/instance-types.%v.json", var.datasource_dir, local.availability_zone)
 }

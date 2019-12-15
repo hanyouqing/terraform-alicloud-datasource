@@ -60,15 +60,15 @@ variable "cidr_blocks" {
         dxb   = "192.168.9.0/24"  # me-east-1        Dubai - UThe United Arab EmiratesK
     }
 }
-variable "icmdb-ecs" {
+variable "demo" {
     default = {
         region            = "cn-beijing"
         availability_zone = "c"
         charge_type       = "PostPaid"      # PrePaid|PostPaid
         network_type      = "Vpc"           # Classic|Vpc
 
-        cpu_core_count    = 2
-        memory_size       = 4
+        cpu_core_count    = 1
+        memory_size       = 1
         counts            = 1
 
         img_ubuntu        = "^ubuntu_18"
